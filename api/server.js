@@ -2,7 +2,7 @@ const asyncHandler = require("express-async-handler");
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const { Golfer, Team } = require("./models");
+const { Golfer, Secret, Team } = require("./models");
 
 const db = process.env.MONGODB_URI;
 
@@ -40,6 +40,26 @@ app.post(
     const team = await Team.create({ name: teamName, golfers });
 
     res.json({ team });
+  })
+);
+
+app.get(
+  "/secrets/",
+  asyncHandler(async (req, res) => {
+    const { slug } = req.body;
+
+    const secret = await Secret.findOne({ slug });
+
+    res.json({ secret });
+  })
+);
+
+app.post(
+  "/secrets",
+  asyncHandler(async (req, res) => {
+    const { slug, secret } = req.body;
+    await Secret.create({ slug, secret });
+    res.json(200);
   })
 );
 
