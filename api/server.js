@@ -44,9 +44,9 @@ app.post(
 );
 
 app.get(
-  "/secrets",
+  "/secrets/:slug",
   asyncHandler(async (req, res) => {
-    const { slug } = req.body;
+    const { slug } = req.params;
 
     const secret = await Secret.findOne({ slug });
 
