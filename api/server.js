@@ -44,7 +44,7 @@ app.post(
 );
 
 app.get(
-  "/secrets/",
+  "/secrets",
   asyncHandler(async (req, res) => {
     const { slug } = req.body;
 
