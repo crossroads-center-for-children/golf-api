@@ -2,7 +2,7 @@ const asyncHandler = require("express-async-handler");
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const { Golfer, Secret, Team } = require("./models");
+const { Golfer, Secret, Team, Order } = require("./models");
 
 const db = process.env.MONGODB_URI;
 
@@ -35,9 +35,9 @@ app.post(
 app.post(
   "/teams",
   asyncHandler(async (req, res) => {
-    const { teamName, golfers } = req.body;
+    const { teamName, golfers, order } = req.body;
 
-    const team = await Team.create({ name: teamName, golfers });
+    const team = await Team.create({ name: teamName, golfers, order });
 
     res.json({ team });
   })
@@ -60,6 +60,15 @@ app.post(
     const { slug, secret } = req.body;
     await Secret.create({ slug, secret });
     res.json(200);
+  })
+);
+
+app.post(
+  "/orders",
+  asyncHandler(async (req, res) => {
+    const { number } = req.body;
+    const order = await Order.create({ number });
+    res.json({ order });
   })
 );
 
