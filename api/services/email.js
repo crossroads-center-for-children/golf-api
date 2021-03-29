@@ -10,7 +10,7 @@ const getNamesOfTeammates = (teammates) => {
     }
   }
 
-  return namesOfTeammates;
+  return namesOfTeammates.join(", ");
 };
 
 const buildRegistrationEmail = ({

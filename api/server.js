@@ -35,15 +35,15 @@ app.post(
 app.post(
   "/teams",
   asyncHandler(async (req, res) => {
-    const { teamName, golferIds, golfers, order, orderNumber } = req.body;
+    const { name, golferIds, golfers, order, orderNumber } = req.body;
 
     const team = await Team.create({
-      name: teamName,
+      name,
       golfers: golferIds,
       order,
     });
 
-    team.sendRegistrationEmail({ teamName, golfers, orderNumber });
+    team.sendRegistrationEmail({ teamName: name, golfers, orderNumber });
 
     res.json({ team });
   })
