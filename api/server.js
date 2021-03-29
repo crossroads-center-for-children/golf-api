@@ -43,7 +43,7 @@ app.post(
       order,
     });
 
-    team.sendRegistrationEmail({ golfers, orderNumber });
+    team.sendRegistrationEmail({ teamName, golfers, orderNumber });
 
     res.json({ team });
   })

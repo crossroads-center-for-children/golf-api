@@ -12,15 +12,21 @@ const TeamSchema = new Schema({
   order: { type: Schema.Types.ObjectId, ref: "Order" },
 });
 
-TeamSchema.methods.sendRegistrationEmail = function ({ golfers, orderNumber }) {
-  const team = this;
+TeamSchema.methods.sendRegistrationEmail = function ({
+  teamName,
+  golfers,
+  orderNumber,
+}) {
+  const numGolfers = golfers.length;
+  const primary = golfers[0];
+  const otherGolfers = golfers.slice(1);
 
   sendRegistrationEmail({
-    teamName: team.name,
+    teamName,
     orderNumber,
-    numGolfers: golfers.length,
-    primary: golfers.shift(),
-    otherGolfers: golfers,
+    numGolfers,
+    primary,
+    otherGolfers,
   });
 };
 
